@@ -1,63 +1,62 @@
 #include <iostream>
 #include <iomanip>
-// #include <conio.h>
-
+#include <string>
 
 using namespace std;
 
 struct Club {
-  string name;
-  int menang, kalah, seri;
-  int goal, poin;
+    string name;
+    int menang, kalah, seri;
+    int goal, poin;
 };
 
 Club klub[16];
 
-void init_club(){
+void init_club() {
+    klub[0].name = "Manchester United";
+    klub[1].name = "Manchester City";
+    klub[2].name = "Liverpool";
+    klub[3].name = "Chealsea";
+    klub[4].name = "Tottenham";
+    klub[5].name = "Newcastle";
+    klub[6].name = "Southampton";
+    klub[7].name = "Wolves Wanderers";
+    klub[8].name = "Leeds United";
+    klub[9].name = "Fulham";
+    klub[10].name = "Brigthon";
+    klub[11].name = "Brentford";
+    klub[12].name = "Aston Villa";
+    klub[13].name = "Leicester";
+    klub[14].name = "Everton";
+    klub[15].name = "Westham";
 
-  klub[0].name = "Manchester United";
-  klub[1].name = "Manchester City";
-  klub[2].name = "Liverpool";
-  klub[3].name = "Chealsea";
-  klub[4].name = "Tottenham";
-  klub[5].name = "Newcastle";
-  klub[6].name = "Southampton";
-  klub[7].name = "Wolves Wanderers";
-  klub[8].name = "Leeds United";
-  klub[9].name = "Fulham";
-  klub[10].name = "Brigthon";
-  klub[11].name = "Brentford";
-  klub[12].name = "Aston Villa";
-  klub[13].name = "Leicester";
-  klub[14].name = "Everton";
-  klub[15].name = "Westham";
-
-	for (int i=0; i<16;i++) {
-		klub[i].menang = klub[i].kalah = klub[i].seri = 0;
-    klub[i].goal = klub[i].poin = 0;
-  }
+    for (int i = 0; i < 16; i++) {
+        klub[i].menang = klub[i].kalah = klub[i].seri = 0;
+        klub[i].goal = klub[i].poin = 0;
+    }
 }
-void daftar_klub(){
+
+void daftar_klub() {
     cout << "+==========================================+" << endl;
-    cout << "| Daftar Nama Klub Liga Inggris 2023	    |" << endl;
+    cout << "| Daftar Nama Klub Liga Inggris 2023        |" << endl;
     cout << "+==========================================+" << endl;
     for (int i = 0; i < 16; i++) {
-        cout << "| " << setw(2) << i+1 << " | " << setw(27) << left << klub[i].name << " |" << endl;
+        cout << "| " << setw(2) << i + 1 << " | " << setw(27) << left << klub[i].name << " |" << endl;
     }
     cout << "+==========================================+" << endl;
 }
 
-void sorting(){
-	int i, j;
-	for (i=0; i<16; i++){
-	for (j=i+1; j<16; j++){
-	if (klub[i].poin<klub[j].poin){
-	Club temp = klub[i];
-	klub[i]=klub[j];
-	klub[j]=temp;
-			}	
-		}
-	}
+void sorting() {
+    int i, j;
+    for (i = 0; i < 16; i++) {
+        for (j = i + 1; j < 16; j++) {
+            if (klub[i].poin < klub[j].poin) {
+                Club temp = klub[i];
+                klub[i] = klub[j];
+                klub[j] = temp;
+            }
+        }
+    }
 }
 
 void display_detail(int idx) {
@@ -68,6 +67,7 @@ void display_detail(int idx) {
     cout << "Goal: " << klub[idx].goal << endl;
     cout << "Poin: " << klub[idx].poin << endl;
 }
+
 void search() {
     string name;
     int i, flag = 0;
@@ -77,39 +77,47 @@ void search() {
     getline(cin, name);
 
     for (i = 0; i < 16; i++) {
-        if (klub[i].name == name || klub[i].name.find(name) != std::string::npos) {
+        if (klub[i].name == name || klub[i].name.find(name) != string::npos) {
             flag = 1;
             break;
         }
     }
 
     if (flag == 1) {
-        cout << "Klub " << klub[i].name << " berada di posisi " << i+1 << " pada klasemen liga." << endl;
+        cout << "Klub " << klub[i].name << " berada di posisi " << i + 1 << " pada klasemen liga." << endl;
         display_detail(i);
     } else {
         cout << "Klub tidak ditemukan pada klasemen liga." << endl;
     }
 }
 
-
-void show_klasemen(){
+void show_klasemen() {
     int i;
-    cout<<"========================================================"<<endl;
-    cout<<"| No. | Nama Klub               | M | K | S | G | P |"<<endl;
-    cout<<"--------------------------------------------------------"<<endl;
-    for (i=0; i<16; i++){
-        printf("|%4d | %-23s | %d | %d | %d | %d | %d |\n", i+1, klub[i].name.c_str(), klub[i].menang, klub[i].kalah, klub[i].seri, klub[i].goal, klub[i].poin);
+    cout << "========================================================" << endl;
+    cout << "| No. | Nama Klub               | M | K | S | G | P |" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    for (i = 0; i < 16; i++) {
+        printf("|%4d | %-23s | %d | %d | %d | %d | %d |\n",
+               i + 1, klub[i].name.c_str(), klub[i].menang, klub[i].kalah, klub[i].seri, klub[i].goal, klub[i].poin);
     }
-    cout<<"========================================================"<<endl;
+    cout << "========================================================" << endl;
 }
 
 void entry_pertandingan() {
     string home_name, away_name;
     int skor_home, skor_away;
-    cout << "Masukkan klub tuan rumah: "; cin >> ws; getline(cin, home_name);
-    cout << "Masukkan skor tuan rumah: "; cin >> skor_home; cin.ignore();
-    cout << "Masukkan klub tamu: "; cin >> ws; getline(cin, away_name);
-    cout << "Masukkan skor tamu: "; cin >> skor_away; cin.ignore();
+    cout << "Masukkan klub tuan rumah: ";
+    cin >> ws;
+    getline(cin, home_name);
+    cout << "Masukkan skor tuan rumah: ";
+    cin >> skor_home;
+    cin.ignore();
+    cout << "Masukkan klub tamu: ";
+    cin >> ws;
+    getline(cin, away_name);
+    cout << "Masukkan skor tamu: ";
+    cin >> skor_away;
+    cin.ignore();
 
     int idx_home = -1, idx_away = -1;
     for (int i = 0; i < 16; i++) {
@@ -118,7 +126,8 @@ void entry_pertandingan() {
         } else if (klub[i].name == away_name) {
             idx_away = i;
         }
-        if (idx_home >= 0 && idx_away >= 0) break;
+        if (idx_home >= 0 && idx_away >= 0)
+            break;
     }
 
     klub[idx_home].goal += skor_home;
@@ -139,79 +148,82 @@ void entry_pertandingan() {
         klub[idx_away].poin++;
     }
 
-       cout << "\nPertandingan berhasil dimasukkan!" << endl;
-    getch();
+    cout << "\nPertandingan berhasil dimasukkan!" << endl;
+    cin.get();
 }
 
+int main() {
+    char jawab;
+    int kategori;
 
+    init_club();
 
+    do {
+        system("clear");
+        cout << "\n" << endl;
+        cout << "\t         TUGAS KELOMPOK MATKUL STRUKTUR DATA" << endl;
+        cout << "\t         1222624 - Fan Fan Firgiawan" << endl;
+        cout << "\t         1222638 - Angga Trisetyo Yanuar" << endl;
+        cout << "\t         1222631 - Asiyono Sidik" << endl;
+        cout << "\n" << endl;
+        cout << "==============================================================" << endl;
+        cout << "\t         Program klasemen liga sepak bola" << endl;
+        cout << "==============================================================" << endl;
+        cout << "\t\t           Pilih menu" << endl;
+        cout << "==============================================================" << endl;
+        cout << "\t\t||[1] = Daftar klub        ||" << endl;
+        cout << "\t\t||[2] = Entry Pertandingan ||" << endl;
+        cout << "\t\t||[3] = Klasemen           ||" << endl;
+        cout << "\t\t||[4] = Pencarian Klub     ||" << endl;
+        cout << "\t\t||[5] = Keluar             ||" << endl;
+        cout << "==============================================================" << endl;
+        cout << "Masukkan pilihan anda: ";
+        cin >> kategori;
+        cout << endl;
 
-main(){
-	char jawab;
-  int home, away, kategori;
+        switch (kategori) {
+            case 1:
+                system("clear");
+                daftar_klub();
+                cin.get();
+                break;
 
-	init_club();
+            case 2:
+                system("clear");
+                entry_pertandingan();
+                break;
 
-do{
-	system("cls");
-	cout<<"\n"<<endl;
-	cout<<"\t         TUGAS KELOMPOK MATKUL STRUKTUR DATA"<<endl;
-	cout<<"\t         1222624 - Fan Fan Firgiawan"<<endl;
-	cout<<"\t         1222638 - Angga Trisetyo Yanuar"<<endl;
-	cout<<"\t         1222631 - Asiyono Sidik"<<endl;
-	cout<<"\n"<<endl;
-	cout<<"=============================================================="<<endl;
-	cout<<"\t         Program klasemen liga sepak bola"<<endl;
-	cout<<"=============================================================="<<endl;
-	cout<<"\t\t           Pilih menu"<<endl;
-	cout<<"=============================================================="<<endl;
-	cout<<"\t\t||[1] = Daftar klub        ||"<<endl;
-	cout<<"\t\t||[2] = Entry Pertandingan ||"<<endl;
-	cout<<"\t\t||[3] = Klasemen           ||"<<endl;
-	cout<<"\t\t||[4] = Pencarian Klub     ||"<<endl;
-	cout<<"\t\t||[5] = Keluar             ||"<<endl;
-	cout<<"=============================================================="<<endl;
-	cout<<"Masukan pilihan anda  : ";cin>>kategori;;cout<<endl;
-	getch;
+            case 3:
+                system("clear");
+                cout << "=============================================================================" << endl;
+                cout << "|---------------------------------Klasemen Liga -----------------------------|" << endl;
+                cout << "=============================================================================" << endl;
+                sorting();
+                show_klasemen();
+                break;
 
-	switch(kategori){
-	case 1 :
-		system("cls");
-	daftar_klub();
-		getch;
-		break;
+            case 4:
+                system("clear");
+                search();
+                cin.get();
+                break;
 
-	case 2:
-	   system("cls");
-       entry_pertandingan();
-       break;
+            case 5:
+                goto akhir;
+                break;
 
-	case 3 :
-	system("cls");
-	cout<<"============================================================================="<<endl;
-	cout<<"|---------------------------------Klasemen Liga -----------------------------|"<<endl;
-	cout<<"============================================================================="<<endl;
-	sorting();
-	show_klasemen();
-	break;
+            default:
+                cout << "Yang anda masukan tidak sesuai" << endl;
+                break;
+        }
 
-	case 4:
-    system("cls");
-    search();
-    getch();
-    break;
-	
-	case 5 :
-		goto akhir;
-		break;
-	
-	default :
-		cout<<"Yang anda masukan tidak sesuai"<<endl;
-		break;
-	}
+        cout << "\n" << "Kembali Ke Menu Awal? (Y/N) ";
+        cin >> jawab;
+        cout << endl;
+    } while (jawab == 'Y' || jawab == 'y');
 
-	cout<<"\n"<<"Kembali Ke Menu Awal? (Y/N) ";cin>>jawab;cout<<endl;
-	}while(jawab=='Y'||jawab=='y');
-	akhir :
-	cout<<"Terimakasih telah menggunakan";
+    akhir:
+    cout << "Terimakasih telah menggunakan program ini!" << endl;
+
+    return 0;
 }
